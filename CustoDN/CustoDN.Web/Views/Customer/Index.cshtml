@@ -1,0 +1,31 @@
+﻿@model CustoDN.Domain.Nexus
+
+@{
+    ViewBag.Title = "title";
+}
+
+<table style="width:100%">
+    <thead>
+        <tr>
+            <th><b>FirstName</b></th>
+            <th><b>LastName</b></th>
+            <th><b>CompanyName</b></th>
+            <th><b>Email</b></th>
+            <th><b>Phone</b></th>
+            <th><b>BillingAddress</b></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model.Customers)
+        {
+            <tr>
+                <td>@customer.FirstName</td>
+                <td>@customer.LastName</td>
+                <td>@customer.CompanyName</td>
+                <td>@customer.Email</td>
+                <td>@customer.Phone</td>
+                <td>@customer.BillingAddress</td>
+            </tr>
+        }
+    </tbody>
+</table>

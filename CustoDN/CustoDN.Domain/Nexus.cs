@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 
-namespace CustoDN.Domain.Tests.CustomerTests
+namespace CustoDN.Domain
 {
     public class Nexus
     {

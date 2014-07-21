@@ -1,6 +1,4 @@
-﻿using System;
-using CustoDN.Domain.Tests.CustomerTests;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace CustoDN.Domain.Tests.When_Adding_A_Customer
 {

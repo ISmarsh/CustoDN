@@ -1,4 +1,3 @@
-using System.Web;
 using System.Web.Optimization;
 
 namespace CustoDN.Web
@@ -22,10 +21,7 @@ namespace CustoDN.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
            "~/Content/site.css"));
 
-            #region Foundation Bundles
-
             bundles.Add(Foundation.Scripts());
-            #endregion
         }
     }
 }
