@@ -1,7 +1,13 @@
-﻿namespace CustoDN.Domain
+﻿using System;
+
+namespace CustoDN.Domain
 {
     public class Customer
     {
+        public Customer()
+        { Id = Guid.NewGuid(); }
+
+        public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string CompanyName { get; set; }

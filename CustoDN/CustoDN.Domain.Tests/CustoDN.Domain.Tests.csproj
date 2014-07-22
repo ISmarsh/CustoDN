@@ -79,13 +79,17 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CustomerTests.cs" />
+    <Compile Include="CustomerDomainTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CustoDN.Domain\CustoDN.Domain.csproj">
       <Project>{9FE03C06-E5CC-4124-B246-9C6A50DE0491}</Project>
       <Name>CustoDN.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CustoDN.Web\CustoDN.Web.csproj">
+      <Project>{E6E7238B-354E-4A05-8069-736AF0E00703}</Project>
+      <Name>CustoDN.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

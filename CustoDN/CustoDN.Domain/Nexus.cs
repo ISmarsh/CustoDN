@@ -13,30 +13,22 @@ namespace CustoDN.Domain
 
         public INexusRepository Repository { get; set; }
 
-        public void AddCustomer(Customer customer)
-        {
-            Customers.Add(customer);
-            Repository.AddCustomer(customer);
-        }
+        public void Add(Customer customer)
+        { Customers.Add(Repository.Create(customer)); }
 
         public List<Customer> Customers { get; set; }
-    }
 
-    public class FakeNexusRepository : INexusRepository
-    {
-        public FakeNexusRepository()
-        { Customers = new List<Customer>(); }
-
-        public void AddCustomer(Customer customer)
+        public void Update(Customer customer)
         {
-            Customers.Add(customer);
+            var updated = Repository.Update(customer);
+            var i = Customers.FindIndex(c => c.Id == updated.Id);
+            Customers[i] = updated;
         }
 
-        public List<Customer> Customers { get; set; }
-    }
+        public void Delete(Customer customer)
+        { Customers.Remove(Repository.Delete(customer)); }
 
-    public interface INexusRepository
-    {
-        void AddCustomer(Customer customer);
+        public void Commit()
+        { Repository.Commit(); }
     }
 }

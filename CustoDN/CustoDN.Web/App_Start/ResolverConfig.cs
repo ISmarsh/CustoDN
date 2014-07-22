@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
 using CustoDN.Domain;
+using CustoDN.Web.Persistence;
 
 namespace CustoDN.Web.App_Start
 {
@@ -26,16 +27,8 @@ namespace CustoDN.Web.App_Start
 
         private static void CreateDummyNexus()
         {
-            nexus = new Nexus();
-            nexus.AddCustomer(new Customer()
-            {
-                FirstName = "Homer",
-                LastName = "Simpson",
-                BillingAddress = "742 Evergreen Terrace Springfield, Oregon",
-                CompanyName = "Springfield Nuclear Power Plant",
-                Email = "Chukylover53@AOL.com",
-                Phone = "(503)555-8707"
-            });
+            nexus = new Nexus(new SqlNexusRepository());
+            nexus.Add(A.Customer());
         }
     }
 }

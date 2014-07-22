@@ -13,5 +13,11 @@ namespace CustoDN.Web.Controllers
         {
             return View(Nexus);
         }
-	}
+
+        public ActionResult Add(Customer customer)
+        {
+            Nexus.Add(customer);
+            return View("Index",Nexus);
+        }
+    }
 }

@@ -1,18 +1,18 @@
-﻿@model CustoDN.Domain.Nexus
+﻿@using CustoDN.Domain
+@model CustoDN.Domain.Nexus
 
 @{
-    ViewBag.Title = "title";
 }
 
 <table style="width:100%">
     <thead>
         <tr>
-            <th><b>FirstName</b></th>
-            <th><b>LastName</b></th>
-            <th><b>CompanyName</b></th>
+            <th><b>First Name</b></th>
+            <th><b>Last Name</b></th>
+            <th><b>Company Name</b></th>
             <th><b>Email</b></th>
             <th><b>Phone</b></th>
-            <th><b>BillingAddress</b></th>
+            <th><b>Billing Address</b></th>
         </tr>
     </thead>
     <tbody>
@@ -29,3 +29,4 @@
         }
     </tbody>
 </table>
+@Html.Partial("_Create",new Customer())
