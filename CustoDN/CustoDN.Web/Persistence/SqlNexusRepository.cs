@@ -31,8 +31,14 @@ namespace CustoDN.Web.Persistence
         public Customer Create(Customer customer)
         { return Repo.Context.Add(customer); }
 
-        public Customer Read(Func<Customer, bool> predicate)
+        public Customer ReadOne(Func<Customer, bool> predicate)
         { return Repo.Find(new FindSingleCustomer(predicate)); }
+
+        public List<Customer> ReadMany(Func<Customer, bool> predicate)
+        { return Repo.Find(new FindCustomers(predicate)).ToList(); }
+
+        public List<Customer> ReadAll()
+        { return ReadMany(c => true); }
 
         public Customer Update(Customer customer)
         {
@@ -40,7 +46,9 @@ namespace CustoDN.Web.Persistence
         }
 
         public Customer Delete(Customer customer)
-        { return Repo.Context.Remove(customer); }
+        {
+            return Repo.Context.Remove(((DataContext)Repo.Context).Attach(customer));
+        }
 
         public void Commit()
         { Repo.Context.Commit(); }

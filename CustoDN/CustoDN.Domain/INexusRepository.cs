@@ -8,7 +8,11 @@ namespace CustoDN.Domain
     {
         Customer Create(Customer customer);
 
-        Customer Read(Func<Customer, bool> predicate);
+        Customer ReadOne(Func<Customer, bool> predicate);
+
+        List<Customer> ReadMany(Func<Customer, bool> predicate);
+
+        List<Customer> ReadAll();
 
         Customer Update(Customer customer);
 
@@ -25,8 +29,14 @@ namespace CustoDN.Domain
         public Customer Create(Customer customer)
         { Customers.Add(customer); return customer;}
 
-        public Customer Read(Func<Customer, bool> predicate)
+        public Customer ReadOne(Func<Customer, bool> predicate)
         { return Customers.First(predicate); }
+
+        public List<Customer> ReadMany(Func<Customer, bool> predicate)
+        { return Customers.Where(predicate).ToList(); }
+
+        public List<Customer> ReadAll()
+        { return ReadMany(c => true); }
 
         public Customer Update(Customer customer)
         {

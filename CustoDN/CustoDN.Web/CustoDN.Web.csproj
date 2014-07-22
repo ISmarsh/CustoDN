@@ -58,6 +58,9 @@
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Highway.Data, Version=5.1.1.0, Culture=neutral, PublicKeyToken=fe803c9600455796, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Highway.Data.5.1.1.0\lib\net40\Highway.Data.dll</HintPath>

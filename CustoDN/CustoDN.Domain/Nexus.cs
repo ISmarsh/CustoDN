@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CustoDN.Domain
 {
@@ -14,7 +15,11 @@ namespace CustoDN.Domain
         public INexusRepository Repository { get; set; }
 
         public void Add(Customer customer)
-        { Customers.Add(Repository.Create(customer)); }
+        {
+            if (Customers.Any(c => c.Id == customer.Id))
+            { Update(customer); return; }
+            Customers.Add(Repository.Create(customer)); 
+        }
 
         public List<Customer> Customers { get; set; }
 
@@ -30,5 +35,8 @@ namespace CustoDN.Domain
 
         public void Commit()
         { Repository.Commit(); }
+
+        public void Reload()
+        { Customers = Repository.ReadAll(); }
     }
 }
