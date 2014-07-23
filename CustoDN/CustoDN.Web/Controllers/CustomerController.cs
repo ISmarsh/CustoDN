@@ -11,13 +11,15 @@ namespace CustoDN.Web.Controllers
         // GET: /Customer/
         public ActionResult Index()
         {
+            Nexus.Reload();
             return View(Nexus);
         }
 
         public ActionResult Add(Customer customer)
         {
             Nexus.Add(customer);
-            return View("Index",Nexus);
+            Nexus.Commit();
+            return RedirectToAction("Index","Customer");
         }
     }
 }

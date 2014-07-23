@@ -28,7 +28,7 @@ namespace CustoDN.Domain.Tests.When_Adding_A_Customer
         {
             var edited = customer.Clone();
             edited.CompanyName = "Kwik-E-Mart";
-            nexus.Update(edited);
+            nexus.UpdateOrAdd(edited);
             Assert.That(nexus.Customers.Find(c => c.Id == customer.Id),Is.EqualTo(edited));
         }
 

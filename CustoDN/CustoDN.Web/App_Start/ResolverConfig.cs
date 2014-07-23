@@ -7,6 +7,7 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using CustoDN.Domain;
 using CustoDN.Web.Persistence;
+using Highway.Data;
 
 namespace CustoDN.Web.App_Start
 {
@@ -27,8 +28,9 @@ namespace CustoDN.Web.App_Start
 
         private static void CreateDummyNexus()
         {
-            nexus = new Nexus(new SqlNexusRepository());
+            nexus = new Nexus(new CustoDNRepository());
             nexus.Add(A.Customer());
+            nexus.Commit();
         }
     }
 }

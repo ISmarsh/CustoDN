@@ -20,7 +20,6 @@ namespace CustoDN.Domain
             return Id.GetHashCode();
         }
 
-        //I couldn't get the TimeStamp comparison to work because for some reason they're always a few milliseconds off. 
         public override bool Equals(object obj)
         {
             var customer = obj as Customer;
@@ -31,6 +30,17 @@ namespace CustoDN.Domain
                                     && Email == customer.Email
                                     && Phone == customer.Phone
                                     && BillingAddress == customer.BillingAddress);
+        }
+
+        public void Copy(Customer customer)
+        {
+            Id = customer.Id;
+            FirstName = customer.FirstName;
+            LastName = customer.LastName;
+            CompanyName = customer.CompanyName;
+            Email = customer.Email;
+            Phone = customer.Phone;
+            BillingAddress = customer.BillingAddress;
         }
     }
 }

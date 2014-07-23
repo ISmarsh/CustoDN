@@ -26,13 +26,12 @@ namespace CustoDN.Web.Tests.Controllers
         }
 
         [Test]
-        public void Add_ActionMethod_Should_Add_Customer()
+        public void Add_ActionMethod_Should_Redirect_To_Customer_Index()
         {
             var customer = A.Customer();
-            var result = customerController.Add(customer) as ViewResult;
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.Model, Is.EqualTo(nexus));
-            Assert.That((result.Model as Nexus).Customers.Contains(customer));
+            var result = customerController.Add(customer) as RedirectToRouteResult;
+            Assert.That(result.RouteValues["controller"], Is.EqualTo("Customer"));
+            Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
         }
     }
 }

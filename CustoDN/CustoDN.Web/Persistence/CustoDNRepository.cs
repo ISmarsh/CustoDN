@@ -9,9 +9,11 @@ using Highway.Data;
 
 namespace CustoDN.Web.Persistence
 {
-    public class SqlNexusRepository : INexusRepository
+    public class CustoDNRepository : Repository
     {
-        private const string DefaultConnection = 
+        public CustoDNRepository() : base(new DataContext(DefaultConnectionString, new MappingConfig())) { }
+
+        private const string DefaultConnectionString = 
                 @"Server=tcp:vdyoh976qy.database.windows.net,1433;
                 Database=CustoDN;
                 User ID=custodian@vdyoh976qy;
@@ -19,39 +21,6 @@ namespace CustoDN.Web.Persistence
                 Trusted_Connection=False;
                 Encrypt=True;
                 Connection Timeout=30;";
-
-        public SqlNexusRepository(string connectionString = null)
-        { 
-            Repo = new Repository(
-            new DataContext(connectionString ?? DefaultConnection, new MappingConfig())); 
-        }
-
-        public Repository Repo { get; set; }
-
-        public Customer Create(Customer customer)
-        { return Repo.Context.Add(customer); }
-
-        public Customer ReadOne(Func<Customer, bool> predicate)
-        { return Repo.Find(new FindSingleCustomer(predicate)); }
-
-        public List<Customer> ReadMany(Func<Customer, bool> predicate)
-        { return Repo.Find(new FindCustomers(predicate)).ToList(); }
-
-        public List<Customer> ReadAll()
-        { return ReadMany(c => true); }
-
-        public Customer Update(Customer customer)
-        {
-            return Repo.Context.Update(customer);
-        }
-
-        public Customer Delete(Customer customer)
-        {
-            return Repo.Context.Remove(((DataContext)Repo.Context).Attach(customer));
-        }
-
-        public void Commit()
-        { Repo.Context.Commit(); }
 
         private void TimsExamples()
         {
@@ -105,22 +74,6 @@ namespace CustoDN.Web.Persistence
         public void ConfigureModelBuilder(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Customer>(); //.HasMany(c => c.Many).WithRequired(m => m.Customer);
-        }
-    }
-
-    public class FindCustomers : Query<Customer>
-    {
-        public FindCustomers(Func<Customer,bool> predicate)
-        {
-            ContextQuery = c => c.AsQueryable<Customer>().Where(predicate).AsQueryable();
-        }
-    }
-
-    public class FindSingleCustomer : Scalar<Customer>
-    {
-        public FindSingleCustomer(Func<Customer, bool> predicate)
-        {
-            ContextQuery = c => c.AsQueryable<Customer>().SingleOrDefault(predicate);
         }
     }
 }
