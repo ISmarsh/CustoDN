@@ -1,5 +1,5 @@
 ﻿@using CustoDN.Domain
-@model CustoDN.Domain.Nexus
+@model IEnumerable<Customer>
 
 @{
 }
@@ -16,9 +16,9 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var customer in Model.Customers)
+        @foreach (var customer in Model)
         {
-            <tr>
+            <tr id=@customer.Id>
                 <td>@customer.FirstName</td>
                 <td>@customer.LastName</td>
                 <td>@customer.CompanyName</td>
@@ -30,3 +30,10 @@
     </tbody>
 </table>
 @Html.Partial("_Create",new Customer())
+
+@section scripts
+{
+    <script type="text/javascript">
+        $()
+    </script>
+}

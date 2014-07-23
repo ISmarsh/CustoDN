@@ -1,4 +1,5 @@
-﻿using Highway.Data.Utilities;
+﻿using System.Linq;
+using Highway.Data.Utilities;
 using NUnit.Framework;
 
 namespace CustoDN.Domain.Tests.When_Adding_A_Customer
@@ -15,28 +16,30 @@ namespace CustoDN.Domain.Tests.When_Adding_A_Customer
             nexus = new Nexus();
             customer = A.Customer();
             nexus.Add(customer);
+            nexus.Commit();
         }
 
         [Test]
         public void Customer_Should_Be_Added()
         {
-            Assert.That(nexus.Customers.Contains(customer));
+            Assert.That(nexus.FindAll().SingleOrDefault(c => c.Equals(customer)),Is.Not.Null);
         }
 
         [Test]
         public void And_Customer_Is_Edited_It_Should_Be_Updated()
         {
-            var edited = customer.Clone();
-            edited.CompanyName = "Kwik-E-Mart";
-            nexus.UpdateOrAdd(edited);
-            Assert.That(nexus.Customers.Find(c => c.Id == customer.Id),Is.EqualTo(edited));
+            customer.CompanyName = "Kwik-E-Mart";
+            nexus.Update(customer);
+            nexus.Commit();
+            Assert.That(nexus.FindById(customer).Equals(customer));
         }
 
         [Test]
         public void And_Customer_Is_Deleted_Then_It_Should_Be_Deleted()
         {
             nexus.Delete(customer);
-            Assert.That(nexus.Customers.Contains(customer),Is.False);
+            nexus.Commit();
+            Assert.That(nexus.FindById(customer), Is.Null);
         }
     }
 }

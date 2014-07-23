@@ -1,7 +1,7 @@
 ﻿@model CustoDN.Domain.Customer
 
 
-@using (Html.BeginForm("Add", "Customer"))
+@using (Html.BeginForm("Submit", "Customer"))
 {
     <table style="width:100%">
         <thead>
@@ -15,15 +15,16 @@
             </tr>
         </thead>
         <tbody>
-                <tr>
-                    <td>@Html.TextBoxFor(c => c.FirstName)</td>
-                    <td>@Html.TextBoxFor(c => c.LastName)</td>
-                    <td>@Html.TextBoxFor(c => c.CompanyName)</td>
-                    <td>@Html.TextBoxFor(c => c.Email)</td>
-                    <td>@Html.TextBoxFor(c => c.Phone)</td>
-                    <td>@Html.TextBoxFor(c => c.BillingAddress)</td>
-                    <td><input type="Submit" name="Save" class="tiny button" /></td>
-                </tr>
+            <tr>
+                @Html.HiddenFor(c => c.Id)
+                <td>@Html.TextBoxFor(c => c.FirstName)</td>
+                <td>@Html.TextBoxFor(c => c.LastName)</td>
+                <td>@Html.TextBoxFor(c => c.CompanyName)</td>
+                <td>@Html.TextBoxFor(c => c.Email)</td>
+                <td>@Html.TextBoxFor(c => c.Phone)</td>
+                <td>@Html.TextBoxFor(c => c.BillingAddress)</td>
+                <td><input type="Submit" name="Save" class="tiny button" /></td>
+            </tr>
         </tbody>
     </table>
 }

@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace CustoDN.Web.Tests.Persistence.When_Managing_Customers
 {
     [TestFixture]
-    public class Given_A_Nexus_With_Customers
+    public class Given_A_Nexus_With_An_Added_Customer
     {
         private Nexus nexus;
         private Customer customer;
@@ -21,22 +21,17 @@ namespace CustoDN.Web.Tests.Persistence.When_Managing_Customers
             nexus.Add(customer);
             nexus.Commit();
             nexus.Repository = new CustoDNRepository(); //New context
-            nexus.Customers.Clear(); //To simulate all new request
         }
 
         [TearDown]
         public void TearDown()
         {
-            var found = GetCustomer();
-            if (found != null)
-            {
-                nexus.Delete(found);
-                nexus.Commit();
-            }
+            nexus.Delete(customer);
+            nexus.Commit();
         }
 
         private Customer GetCustomer()
-        { return nexus.Repository.Find(new FindSingleCustomer(c => c.Id == customer.Id)); }
+        { return nexus.FindById(customer); }
 
         [Test]
         public void And_Customer_Is_Added_It_Should_Be_Added()
@@ -45,36 +40,30 @@ namespace CustoDN.Web.Tests.Persistence.When_Managing_Customers
         }
 
         [Test]
-        public void Reload_Should_Load_Added_Customers()
-        {
-            nexus.Reload();
-            Assert.That(nexus.Customers.SingleOrDefault(c => c.Equals(customer)),Is.Not.Null);
-        }
-
-        [Test]
-        public void And_Customer_Is_Edited_Without_Reloading_It_Should_Be_Updated()
+        public void And_Customer_Is_Edited_It_Should_Be_Updated()
         {
             customer.CompanyName = "Kwik-E-Mart";
-            nexus.UpdateOrAdd(customer);
+            nexus.Update(customer);
             nexus.Commit();
             var found = GetCustomer();
             Assert.That(found.Equals(customer));
         }
 
         [Test]
-        public void And_Customer_Is_Edited_After_Reloading_It_Should_Be_Updated()
+        public void And_Update_Is_Called_On_A_New_Customer_It_Is_Not_Added()
         {
-            nexus.Reload();
-            customer.CompanyName = "Kwik-E-Mart";
-            nexus.UpdateOrAdd(customer);
+            nexus.Delete(customer); //For cleanup
+            customer = new Customer();
+            nexus.Update(customer);
             nexus.Commit();
             var again = GetCustomer();
-            Assert.That(again.Equals(customer));
+            Assert.That(again, Is.Null);
         }
 
         [Test]
-        public void And_Update_Is_Called_On_A_New_Customer_It_Is_Added()
+        public void And_UpdateOrAdd_Is_Called_On_A_New_Customer_It_Is_Added()
         {
+            nexus.Delete(customer); //For cleanup
             customer = new Customer();
             nexus.UpdateOrAdd(customer);
             nexus.Commit();
@@ -83,17 +72,8 @@ namespace CustoDN.Web.Tests.Persistence.When_Managing_Customers
         }
 
         [Test]
-        public void And_Customer_Is_Deleted_Without_Reloading_Then_It_Should_Be_Deleted()
+        public void And_Customer_Is_Deleted_Then_It_Should_Be_Deleted()
         {
-            nexus.Delete(customer);
-            nexus.Commit();
-            Assert.That(GetCustomer(), Is.Null);
-        }
-
-        [Test]
-        public void And_Customer_Is_Deleted_After_Reloading_Then_It_Should_Be_Deleted()
-        {
-            nexus.Reload();
             nexus.Delete(customer);
             nexus.Commit();
             Assert.That(GetCustomer(), Is.Null);

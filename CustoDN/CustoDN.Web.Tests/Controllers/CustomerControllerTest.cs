@@ -29,7 +29,7 @@ namespace CustoDN.Web.Tests.Controllers
         public void Add_ActionMethod_Should_Redirect_To_Customer_Index()
         {
             var customer = A.Customer();
-            var result = customerController.Add(customer) as RedirectToRouteResult;
+            var result = customerController.Submit(customer) as RedirectToRouteResult;
             Assert.That(result.RouteValues["controller"], Is.EqualTo("Customer"));
             Assert.That(result.RouteValues["action"], Is.EqualTo("Index"));
         }

@@ -15,38 +15,50 @@ namespace CustoDN.Domain
         public Nexus(Repository repo)
         {
             Repository = repo;
-            Customers = new List<Customer>();
         }
 
         public Repository Repository { get; set; }
 
-        public List<Customer> Customers { get; private set; }
-
         public Customer Add(Customer customer)
         {
-            Customers.Add(Repository.Context.Add(customer));
-            return customer;
+            return Repository.Context.Add(customer);
         }
 
-        public void Reload()
+        public Customer FindSingle(Func<Customer,bool> predicate)
         {
-            Customers = Repository.Find(new FindCustomers(c => true)).ToList();
+            return Repository.Find(new FindSingleCustomer(predicate));
         }
 
-        public void UpdateOrAdd(Customer customer)
+        public Customer FindById(Customer customer)
+        { return FindSingle(c => c.Id == customer.Id); }
+
+        public IEnumerable<Customer> FindMany(Func<Customer, bool> predicate)
         {
-            var match = new Func<Customer, bool>(c => c.Id == customer.Id);
-            var here = Customers.SingleOrDefault(match);
-            var there = Repository.Find(new FindSingleCustomer(match));
-            (here ?? there ?? Add(customer)).Copy(customer);
+            return Repository.Find(new FindCustomers(predicate));
+        }
+
+        public IEnumerable<Customer> FindAll()
+        { return FindMany(c => true); }
+
+        public Customer Update(Customer customer)
+        {
+            var found = FindById(customer);
+            if (found != null)
+                found.Copy(customer);
+            return found;
+        }
+
+        public Customer UpdateOrAdd(Customer customer)
+        {
+            return Update(customer) ?? Add(customer);
         }
 
         public void Delete(Customer customer)
         {
-            var match = new Func<Customer, bool>(c => c.Id == customer.Id);
-            Repository.Context.Remove(
-                Customers.SingleOrDefault(match) ?? Repository.Find(new FindSingleCustomer(match)));
-            Customers.RemoveAll(c => c.Id == customer.Id);
+            var found = FindById(customer);
+            if (found == null)
+                return;
+            Repository.Context.Remove(found);
         }
 
         public void Commit()
