@@ -1,0 +1,13 @@
+﻿@model CustoDN.Domain.Customer
+
+<tr id="@Model.Id">
+    <td>@Model.FirstName</td>
+    <td>@Model.LastName</td>
+    <td>@Model.CompanyName</td>
+    <td>@Model.Email</td>
+    <td>@Model.Phone</td>
+    <td>@Model.BillingAddress</td>
+    <td><a type="tiny button" href="../Customer/Edit/@(Model.Id)">Edit</a></td>
+    <td><a type="tiny button" href="../Customer/Delete/@(Model.Id)">Delete</a></td>
+    @*<td><a ng-click="edit('@Model.Id')">Edit</a></td>*@
+</tr>

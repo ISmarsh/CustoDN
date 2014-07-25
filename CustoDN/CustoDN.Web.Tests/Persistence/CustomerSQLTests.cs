@@ -26,12 +26,12 @@ namespace CustoDN.Web.Tests.Persistence.When_Managing_Customers
         [TearDown]
         public void TearDown()
         {
-            nexus.Delete(customer);
+            nexus.Delete(customer.Id);
             nexus.Commit();
         }
 
         private Customer GetCustomer()
-        { return nexus.FindById(customer); }
+        { return nexus.FindById(customer.Id); }
 
         [Test]
         public void And_Customer_Is_Added_It_Should_Be_Added()
@@ -52,7 +52,7 @@ namespace CustoDN.Web.Tests.Persistence.When_Managing_Customers
         [Test]
         public void And_Update_Is_Called_On_A_New_Customer_It_Is_Not_Added()
         {
-            nexus.Delete(customer); //For cleanup
+            nexus.Delete(customer.Id); //For cleanup
             customer = new Customer();
             nexus.Update(customer);
             nexus.Commit();
@@ -63,7 +63,7 @@ namespace CustoDN.Web.Tests.Persistence.When_Managing_Customers
         [Test]
         public void And_UpdateOrAdd_Is_Called_On_A_New_Customer_It_Is_Added()
         {
-            nexus.Delete(customer); //For cleanup
+            nexus.Delete(customer.Id); //For cleanup
             customer = new Customer();
             nexus.UpdateOrAdd(customer);
             nexus.Commit();
@@ -74,7 +74,7 @@ namespace CustoDN.Web.Tests.Persistence.When_Managing_Customers
         [Test]
         public void And_Customer_Is_Deleted_Then_It_Should_Be_Deleted()
         {
-            nexus.Delete(customer);
+            nexus.Delete(customer.Id);
             nexus.Commit();
             Assert.That(GetCustomer(), Is.Null);
         }

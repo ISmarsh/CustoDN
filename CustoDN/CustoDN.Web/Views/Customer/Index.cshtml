@@ -15,25 +15,29 @@
             <th><b>Billing Address</b></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody ng-app ng-controller="read">
         @foreach (var customer in Model)
-        {
-            <tr id=@customer.Id>
-                <td>@customer.FirstName</td>
-                <td>@customer.LastName</td>
-                <td>@customer.CompanyName</td>
-                <td>@customer.Email</td>
-                <td>@customer.Phone</td>
-                <td>@customer.BillingAddress</td>
-            </tr>
-        }
+        { @Html.Partial("_Read", customer) }
+        @Html.Partial("_Create", new Customer())
     </tbody>
 </table>
-@Html.Partial("_Create",new Customer())
 
 @section scripts
 {
+    <script src="~/Scripts/angular.js"></script>
     <script type="text/javascript">
-        $()
+        function read($scope,$http) {
+            $scope.edit = function (id) {
+                $http.get("Customer/Edit/" + id).success(function (data) {
+                    document.getElementById(id).innerHTML = data;
+                });
+            }
+
+            $scope.submit = function(customer) {
+                $http.post("Customer/Submit/", customer).success(function (data) {
+                    document.getElementById(customer["Id"]).innerHTML = data;
+                });
+            }
+        }
     </script>
 }

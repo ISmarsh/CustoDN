@@ -1,0 +1,23 @@
+﻿@using CustoDN.Domain
+@model CustoDN.Domain.Customer
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<table style="width:100%">
+    <thead>
+        <tr>
+            <th><b>First Name</b></th>
+            <th><b>Last Name</b></th>
+            <th><b>Company Name</b></th>
+            <th><b>Email</b></th>
+            <th><b>Phone</b></th>
+            <th><b>Billing Address</b></th>
+        </tr>
+    </thead>
+    <tbody>
+        @Html.Partial("_Create", Model)
+    </tbody>
+</table>
+

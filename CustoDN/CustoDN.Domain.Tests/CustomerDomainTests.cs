@@ -31,15 +31,15 @@ namespace CustoDN.Domain.Tests.When_Adding_A_Customer
             customer.CompanyName = "Kwik-E-Mart";
             nexus.Update(customer);
             nexus.Commit();
-            Assert.That(nexus.FindById(customer).Equals(customer));
+            Assert.That(nexus.FindById(customer.Id).Equals(customer));
         }
 
         [Test]
         public void And_Customer_Is_Deleted_Then_It_Should_Be_Deleted()
         {
-            nexus.Delete(customer);
+            nexus.Delete(customer.Id);
             nexus.Commit();
-            Assert.That(nexus.FindById(customer), Is.Null);
+            Assert.That(nexus.FindById(customer.Id), Is.Null);
         }
     }
 }

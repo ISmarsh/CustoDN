@@ -29,8 +29,8 @@ namespace CustoDN.Domain
             return Repository.Find(new FindSingleCustomer(predicate));
         }
 
-        public Customer FindById(Customer customer)
-        { return FindSingle(c => c.Id == customer.Id); }
+        public Customer FindById(Guid id)
+        { return FindSingle(c => c.Id == id); }
 
         public IEnumerable<Customer> FindMany(Func<Customer, bool> predicate)
         {
@@ -42,7 +42,7 @@ namespace CustoDN.Domain
 
         public Customer Update(Customer customer)
         {
-            var found = FindById(customer);
+            var found = FindById(customer.Id);
             if (found != null)
                 found.Copy(customer);
             return found;
@@ -53,9 +53,9 @@ namespace CustoDN.Domain
             return Update(customer) ?? Add(customer);
         }
 
-        public void Delete(Customer customer)
+        public void Delete(Guid id)
         {
-            var found = FindById(customer);
+            var found = FindById(id);
             if (found == null)
                 return;
             Repository.Context.Remove(found);
