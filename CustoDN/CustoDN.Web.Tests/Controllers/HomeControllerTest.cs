@@ -9,16 +9,17 @@ namespace CustoDN.Web.Tests.Controllers
     public class HomeControllerTest
     {
         [Test]
-        public void Index()
+        public void Home_Index_Redirects_To_Customer_Index()
         {
             // Arrange
             HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            var result = controller.Index() as RedirectToRouteResult;
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.AreEqual(result.RouteValues["controller"], "Customer");
+            Assert.AreEqual(result.RouteValues["action"], "Index");
         }
 
         [Test]

@@ -3,6 +3,7 @@ using CustoDN.Domain;
 
 namespace CustoDN.Web.Controllers
 {
+    [Authorize]
     public class CustomerController : NexusController
     {
         public CustomerController(Nexus nexus) : base(nexus) { }
