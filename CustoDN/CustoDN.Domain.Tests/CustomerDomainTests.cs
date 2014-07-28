@@ -13,7 +13,7 @@ namespace CustoDN.Domain.Tests.When_Adding_A_Customer
         [SetUp]
         public void Setup()
         {
-            nexus = new Nexus();
+            nexus = An.EmptyInMemoryNexus();
             customer = A.Customer();
             nexus.Add(customer);
             nexus.Commit();

@@ -10,14 +10,12 @@ namespace CustoDN.Domain
 {
     public class Nexus
     {
-        public Nexus() : this(new Repository(new InMemoryDataContext())) { }
-
-        public Nexus(Repository repo)
+        public Nexus(IRepository repo)
         {
             Repository = repo;
         }
 
-        public Repository Repository { get; set; }
+        public IRepository Repository { get; set; }
 
         public Customer Add(Customer customer)
         {

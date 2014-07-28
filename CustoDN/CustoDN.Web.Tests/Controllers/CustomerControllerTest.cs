@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Configuration;
+using System.IO;
+using System.Web.Mvc;
 using CustoDN.Domain;
 using CustoDN.Web.Controllers;
 using NUnit.Framework;
@@ -14,7 +16,7 @@ namespace CustoDN.Web.Tests.Controllers
         [SetUp]
         public void SetUp()
         {
-            nexus = new Nexus();
+            nexus = An.EmptyDbNexus();
             customerController = new CustomerController(nexus);
         }
 

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using CustoDN.Domain;
-using CustoDN.Web.Persistence;
+using Highway.Data;
 using Highway.Data.Utilities;
 using NUnit.Framework;
 
@@ -16,11 +18,11 @@ namespace CustoDN.Web.Tests.Persistence.When_Managing_Customers
         [SetUp]
         public void SetUp()
         {
-            nexus = new Nexus(new CustoDNRepository());
+            nexus = An.EmptyDbNexus();
             customer = A.Customer();
             nexus.Add(customer);
             nexus.Commit();
-            nexus.Repository = new CustoDNRepository(); //New context
+            nexus.Repository = new Repository(A.NewDbDataContext()); //New context
         }
 
         [TearDown]
