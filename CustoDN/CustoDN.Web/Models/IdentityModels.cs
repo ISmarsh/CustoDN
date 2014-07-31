@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using System.Configuration;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CustoDN.Web.Models
 {
@@ -10,7 +11,7 @@ namespace CustoDN.Web.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection")
+            : base(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString)
         {
         }
     }

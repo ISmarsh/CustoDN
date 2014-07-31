@@ -222,6 +222,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\aspnet-CustoDN.Web-20140721095214.mdf" />
+    <Content Include="App_Data\aspnet-CustoDN.Web-20140721095214_log.ldf">
+      <DependentUpon>aspnet-CustoDN.Web-20140721095214.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\ie.css" />
     <Content Include="Content\print.css" />
     <Content Include="Content\screen.css" />
@@ -706,9 +710,7 @@
     <Content Include="Views\Customer\_Read.cshtml" />
     <Content Include="Views\Customer\Edit.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />

@@ -128,8 +128,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="aspnet-CustoDN.Web-20140721095214_log.ldf">
-      <DependentUpon>aspnet-CustoDN.Web-20140721095214.mdf</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>aspnet-CustoDN.Web-20140721095214.mdf</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>
